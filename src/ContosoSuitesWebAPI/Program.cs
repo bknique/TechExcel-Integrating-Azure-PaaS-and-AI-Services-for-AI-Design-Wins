@@ -63,6 +63,8 @@ app.MapGet("/", async () =>
 // Retrieve the set of hotels from the database.
 app.MapGet("/Hotels", async () => 
 {
+    var hotels = await app.Services.GetRequiredService<IDatabaseService>().GetHotels();
+    return hotels;
     throw new NotImplementedException();
 })
     .WithName("GetHotels")
@@ -71,6 +73,8 @@ app.MapGet("/Hotels", async () =>
 // Retrieve the bookings for a specific hotel.
 app.MapGet("/Hotels/{hotelId}/Bookings/", async (int hotelId) => 
 {
+    var bookings = await app.Services.GetRequiredService<IDatabaseService>().GetBookingsForHotel(hotelId);
+    return bookings;
     throw new NotImplementedException();
 })
     .WithName("GetBookingsForHotel")
@@ -79,6 +83,8 @@ app.MapGet("/Hotels/{hotelId}/Bookings/", async (int hotelId) =>
 // Retrieve the bookings for a specific hotel that are after a specified date.
 app.MapGet("/Hotels/{hotelId}/Bookings/{min_date}", async (int hotelId, DateTime min_date) => 
 {
+    var bookings = await app.Services.GetRequiredService<IDatabaseService>().GetBookingsByHotelAndMinimumDate(hotelId, min_date);
+    return bookings;
     throw new NotImplementedException();
 })
     .WithName("GetRecentBookingsForHotel")
